@@ -59,12 +59,12 @@ python main.py \
 --root_dir ${ROOT}
 ```
 
-#### Contribute!
+### Contribute!
 
 - If you want to add more methods, simply follow one of the implementations inside `trainers` directory.
 
 
-#### Highlights from the paper:
+### Highlights from the paper:
 
 1. Overall, methods fail when datasets contain multiple sources of bias, even if they excel on smaller settings with one or two sources of bias (e.g., CelebA). 
 ![](images/main_table.jpg)
