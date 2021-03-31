@@ -13,7 +13,7 @@ import logging
 from datasets import dataloader_factory
 import json
 from experiments.celebA_experiments import *
-from experiments.biased_mnist_experiments import *
+# from experiments.biased_mnist_experiments import *
 from experiments.gqa_experiments import *
 
 
@@ -50,40 +50,6 @@ def backend_setting(option):
 def set_if_null(option, attr_name, val):
     if not hasattr(option, attr_name) or getattr(option, attr_name) is None:
         setattr(option, attr_name, val)
-
-
-def configure_biased_mnist(option):
-    set_if_null(option, 'optimizer_name', 'Adam')
-    set_if_null(option, 'batch_size', 128)
-    # option.num_bias_classes = 2
-    option.num_classes = 10
-    # option.bias_variable_dims = 2
-    set_if_null(option, 'lr', 1e-4)
-    set_if_null(option, 'epochs', 30)
-    set_if_null(option, 'bias_model_hid_dims', 64)
-    set_if_null(option, 'model_name', 'BiasedMNISTCNN')
-    option.dataset_name = 'biased_mnist'
-    option.data_dir = option.root_dir + f"/{option.dataset_name}"
-    set_if_null(option, 'bias_model_name', 'MLP2')
-    set_if_null(option, 'bias_variable_type', 'categorical')
-    set_if_null(option, 'num_envs_per_batch', 16)
-
-    feature_dims = {
-        'conv1': 32,
-        'conv2': 32,
-        'pooled2': 32,
-        'conv3': 64,
-        'conv4': 64,
-        'conv5': 64,
-        'pooled5': 128,
-        'logits': option.num_classes
-    }
-    set_if_null(option, 'bias_predictor_name', 'MLP2')
-    set_if_null(option, 'bias_predictor_in_layer', 'pooled2')
-
-    option.bias_predictor_in_dims = feature_dims[option.bias_predictor_in_layer]
-    option.bias_predictor_hid_dims = feature_dims[option.bias_predictor_in_layer]
-
 
 def main():
     option = get_option()
