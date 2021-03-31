@@ -1,6 +1,21 @@
 ###  An Investigation of Critical Issues in Bias Mitigation Techniques
 
 Our paper examines if the state-of-the-art bias mitigation methods are able to perform well on more realistic settings: with multiple sources of biases, hidden biases and without access to test distributions. This repository has implementations/re-implementations for seven popular techniques.
+
+#### Highlights from the paper:
+
+1. Overall, methods fail when datasets contain multiple sources of bias, even if they excel on smaller settings with one or two sources of bias (e.g., CelebA). 
+![](images/main_table.jpg)
+
+2. Methods exploit both implicit and explicit biases.
+![](images/bias_exploitation.jpg) 
+ 
+3. Methods cannot handle multiple sources of bias even when they are explicitly labeled.
+![](images/scalability.jpg)
+
+4. Most methods show high sensitivity to hyperparameters (thereby requiring test distribution for model selection) especially for minority groups
+![](images/distribution_variance.jpg)
+
   
 
 #### Install Dependencies
