@@ -22,7 +22,7 @@ Our paper examines if the state-of-the-art bias mitigation methods are able to p
 - For each dataset, we test on train, val and test splits. Each dataset file contains a function to create a dataloader for all of these splits.
 
 ##### Biased MNIST
-We will release the dataset and the instructions soon...
+We may make some improvements to the dataset, and will release the dataset by May, 2021.
 
 ##### CelebA
 - Download the dataset [from here](https://drive.google.com/drive/folders/0B7EVK8r0v71pWEZsZE9oNnFzTm8) and extract the data to `${ROOT}`
