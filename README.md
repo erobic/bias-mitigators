@@ -1,6 +1,6 @@
 ##  An Investigation of Critical Issues in Bias Mitigation Techniques
 
-Our paper examines if the state-of-the-art bias mitigation methods are able to perform well on more realistic settings: with multiple sources of biases, hidden biases and without access to test distributions. This repository has implementations/re-implementations for seven popular techniques.
+Our paper (https://arxiv.org/abs/2104.00170) examines if the state-of-the-art bias mitigation methods are able to perform well on more realistic settings: with multiple sources of biases, hidden biases and without access to test distributions. This repository has implementations/re-implementations for seven popular techniques.
 
   
 ### Setup
