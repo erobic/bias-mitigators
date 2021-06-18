@@ -22,6 +22,16 @@ class BiasedMNISTGenerator():
     Bias factor: texture_color is correlated with the texture class
     Also supports class imbalance
     """
+    BIAS_DIGIT_COLOR = 'digit_color'
+    BIAS_DIGIT_SCALE = 'digit_scale'
+    BIAS_TEXTURE = 'texture'
+    BIAS_TEXTURE_COLOR = 'texture_color'
+    BIAS_NATURAL_TEXTURE = 'natural_texture'
+    BIAS_DIGIT_POSITION = 'digit_position'
+    BIAS_LETTER = 'letter'
+    BIAS_LETTER_COLOR = 'letter_color'
+    FACTORS_v1 = [BIAS_DIGIT_COLOR, BIAS_TEXTURE, BIAS_TEXTURE_COLOR,
+                    BIAS_DIGIT_POSITION, BIAS_LETTER, BIAS_LETTER_COLOR]
 
     def __init__(self, original_mnist_dir, textures_dir, split, bias_config, cell_dim=32):
         """

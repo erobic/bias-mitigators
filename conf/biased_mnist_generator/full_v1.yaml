@@ -9,8 +9,8 @@ bias_config:
     p_bias: 0.9
     type: 'discrete'
   digit_scale:
-    enabled: True
-    p_bias: 0.9
+    enabled: False
+    p_bias: null
   digit_position:
     enabled: True
     p_bias: 0.9
@@ -28,6 +28,6 @@ bias_config:
     p_bias: 0.9
   natural_texture:
     enabled: False
-    p_bias: 0
+    p_bias: null
   num_cells: 5
   class_imbalance_ratio: null

@@ -12,12 +12,13 @@ def biased_mnist_experiments(option, run):
     orig_option = copy.deepcopy(option)
 
     # Here, we configure rest of the arguments which likely DO NOT NEED TO BE CHANGED
-    for bias_variables in [['digit_color', 'digit_scale']]:
+    for bias_variables in [
+        ['digit_color', 'digit_scale', 'texture', 'texture_color', 'digit_position', 'letter', 'letter_color']]:
         for p_bias in [0.9]:
             option = copy.deepcopy(orig_option)
             option.dataset_name = 'biased_mnist'
             option.data_dir = option.root_dir + f"/{option.dataset_name}"
-            option.bias_split_name = 'full'
+            option.bias_split_name = 'full_v1'
             option.trainval_sub_dir = option.bias_split_name + "_" + str(p_bias)
             option.target_name = 'digit'
             option.bias_variables = bias_variables
@@ -66,35 +67,31 @@ def biased_mnist_experiments(option, run):
             if option.trainer_name == 'IRMv1Trainer':
                 set_if_null(option, 'num_envs_per_batch', 4)
 
-            if option.trainer_name == 'SpectralDecouplingTrainer':
-                option.spectral_decoupling_lambdas = [10.0,
-                                                      10.0]  # For CelebA, we have per-class lambdas and gammas for SD.
-                option.spectral_decoupling_gammas = [0.44, 2.5]
-
             # Test epochs
             option.test_epochs = [e for e in
                                   range(40, 51)]  # Due to instability, we average accuracies over the last 10 epochs
-            option.test_every = 25  # We further test every 10 epochs
-            option.save_predictions_every = 25
-            option.save_model_every = 25
+            save_every = 25
+            option.test_every = save_every  # We further test every 10 epochs
+            option.save_predictions_every = save_every
+            option.save_model_every = save_every
 
             run(option)
 
 
 def get_feature_dims(model_name, num_classes):
-    if 'ResNet' in model_name:
+    if 'ResNet10' in model_name:
         return {
-            'model.conv1': 64,
-            'model.pooled_conv1': 64,
-            'model.layer1.1.conv2': 64,
-            'model.pooled1': 64,
-            'model.layer2.1.conv2': 128,
-            'model.layer2_flattened': 128 * 28 * 28,
-            'model.pooled2': 128,
-            'model.layer3.1.conv2': 256,
-            'model.pooled3': 256,
-            'model.layer4.1.conv2': 512,
-            'model.pooled4': 512,
+            'model.conv1': 32,
+            'model.pooled_conv1': 32,
+            'model.layer1.1.conv2': 32,
+            'model.pooled1': 32,
+            'model.layer2.1.conv2': 64,
+            'model.layer2_flattened': 64 * 28 * 28,
+            'model.pooled2': 64,
+            'model.layer3.1.conv2': 128,
+            'model.pooled3': 128,
+            'model.layer4.1.conv2': 256,
+            'model.pooled4': 256,
             'model.fc': 10,
             'logits': num_classes
         }

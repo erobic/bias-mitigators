@@ -11,6 +11,7 @@ import json
 # from datasets.texture_utils import *
 import numpy as np
 from utils.data_utils import dict_collate_fn
+from datasets.biased_mnist_generator import BiasedMNISTGenerator
 
 
 # from datasets.class_imbalance_utils import *
@@ -65,11 +66,12 @@ class BiasedMNISTDataset(Dataset):
         :return:
         """
         self.data_items = {}
+        bias_variable_to_group_utils = {}
+
         for index, curr_factor_to_val in enumerate(self.factors_data):
             curr_factor_to_val = self.factors_data[index]  # Contains exact values for each factor
             group_ix, group_name, maj_min_group_ix, maj_min_group_name = self.main_group_utils.to_group_ix_and_name(
                 curr_factor_to_val)
-
             # Gather the class id of the target attribute and add group based on bias variable
             y = curr_factor_to_val[self.target_name]
             item_data = {
@@ -80,6 +82,17 @@ class BiasedMNISTDataset(Dataset):
                 'maj_min_group_ix': maj_min_group_ix,
                 'maj_min_group_name': maj_min_group_name
             }
+
+            for bias_variable in BiasedMNISTGenerator.FACTORS_v1:
+                if bias_variable not in bias_variable_to_group_utils:
+                    bias_variable_to_group_utils[bias_variable] = GroupUtils(target_name=self.target_name,
+                                                                             bias_variable_names=[bias_variable],
+                                                                             num_classes=self.num_classes)
+                _, _, bv_group_ix, bv_group_name = bias_variable_to_group_utils[bias_variable].to_group_ix_and_name(
+                    curr_factor_to_val)
+                item_data[f'{bias_variable}_group_ix'] = bv_group_ix
+                item_data[
+                    f'{bias_variable}_group_name'] = "zzz_" + bv_group_name  # prefixed with z to make it easily viewable
 
             self.data_items[curr_factor_to_val['index']] = item_data
 
@@ -194,7 +207,7 @@ class GroupUtils():
 
         # Go through all of the bias variables, to come up with the group name
         for ix, bias_name in enumerate(self.bias_variable_names):
-            bias_val_ix = curr_factor_to_val[bias_name+"_ix"]
+            bias_val_ix = curr_factor_to_val[bias_name + "_ix"]
             maj_min = 'minority'
             if bias_val_ix == class_ix:
                 maj_min = 'majority'

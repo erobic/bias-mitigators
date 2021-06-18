@@ -117,7 +117,7 @@ class EnvironmentWiseBatchSampler():
                 self.env_to_dataset_ixs[gix].append(dix)
                 self.num_items += 1
         self.env_keys = list(self.env_to_dataset_ixs.keys())
-        logging.getLogger().info(f"env keys {self.env_keys}")
+        # logging.getLogger().info(f"env keys {self.env_keys}")
         # for gix in self.env_to_dataset_ixs:
         #     logging.getLogger().info(f"Env Key: {gix} Cnt: {len(self.env_to_dataset_ixs[gix])}")
 

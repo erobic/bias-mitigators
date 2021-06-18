@@ -142,7 +142,7 @@ class BaseTrainer(object):
         group_values = {}
         # Any key in batch that contains both 'group' and 'name' substrings will be used for evaluation
         for key in batch:
-            if key == 'group_name':  # 'group' in key and 'name' in key:
+            if 'group' in key and 'name' in key:
                 for val, grp_name in zip(sample_wise_vals, batch[key]):
                     if grp_name not in group_values:
                         group_values[grp_name] = []
