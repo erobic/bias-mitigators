@@ -256,6 +256,9 @@ class BaseTrainer(object):
             for test_key in test_loaders:
                 self.test(epoch, test_key, test_loaders[test_key])
 
+        metrics_fname = os.path.join(self.option.expt_dir, 'metrics.json')
+        json.dump(self.metrics, open(metrics_fname, 'w'), indent=4, sort_keys=True)
+
     def after_all_epochs(self):
         """
         Saves all the metrics

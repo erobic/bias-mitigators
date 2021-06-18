@@ -4,6 +4,7 @@ import torch
 from torch.utils.data import DataLoader
 import json
 from datasets.vqa.gqa_dataset import GQADataset, create_gqa_dataloaders
+from datasets.biased_mnist_dataset import create_biased_mnist_dataloaders
 
 
 def build_balanced_loader(dataloader, balanced_sampling_attributes=['y'], balanced_sampling_gamma=1, replacement=True):

@@ -237,7 +237,7 @@ class ResNet18(ResNetWrapper):
 
 
 class ResNet10(ResNetWrapper):
-    def __init__(self, num_classes, in_dims=None, hid_dims=None, norm_layer=nn.BatchNorm2d, width=64):
+    def __init__(self, num_classes, in_dims=None, hid_dims=None, norm_layer=nn.BatchNorm2d, width=32):
         super(ResNet10, self).__init__(num_classes, in_dims, hid_dims, norm_layer, width)
 
 

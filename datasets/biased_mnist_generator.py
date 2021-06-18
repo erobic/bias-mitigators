@@ -447,54 +447,6 @@ class BiasedMNISTGenerator():
             cv2.imwrite(sample_save_file, img)
 
 
-def get_p_bias_config(digit_color_enabled=False, digit_color_p_bias=0.1,
-                      digit_color_type='discrete',
-                      digit_scale_enabled=False, digit_scale_p_bias=0.1,
-                      digit_position_enabled=False, digit_position_p_bias=0.1,
-                      texture_enabled=False, texture_p_bias=0.1,
-                      texture_color_enabled=False, texture_color_p_bias=0.1,
-                      letter_enabled=False, letter_p_bias=0.1,
-                      letter_color_enabled=False, letter_color_p_bias=0.1,
-                      num_cells=5, class_imbalance_ratio=None):
-    return {
-        'digit_color': {
-            'enabled': digit_color_enabled,
-            'p_bias': to_list(digit_color_p_bias),
-            'type': digit_color_type
-        },
-        'digit_scale': {
-            'enabled': digit_scale_enabled,
-            'p_bias': to_list(digit_scale_p_bias),
-        },
-        'digit_position': {
-            'enabled': digit_position_enabled,
-            'p_bias': to_list(digit_position_p_bias),
-        },
-        'texture': {
-            'enabled': texture_enabled,
-            'p_bias': to_list(texture_p_bias),
-        },
-        'texture_color': {
-            'enabled': texture_color_enabled,
-            'p_bias': to_list(texture_color_p_bias)
-        },
-        'letter': {
-            'enabled': letter_enabled,
-            'p_bias': to_list(letter_p_bias)
-        },
-        'letter_color': {
-            'enabled': letter_color_enabled,
-            'p_bias': to_list(letter_color_p_bias)
-        },
-        'natural_texture': {
-            'enabled': False,
-            'p_bias': False
-        },
-        'num_cells': num_cells,
-        'class_imbalance_ratio': class_imbalance_ratio
-    }
-
-
 def generate_train_val_ixs(biased_mnist_dir, replace=False):
     total_indices = 60000
     indices = np.arange(0, total_indices)
