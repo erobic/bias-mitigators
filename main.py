@@ -13,7 +13,7 @@ import logging
 from datasets import dataloader_factory
 import json
 from experiments.celebA_experiments import *
-# from experiments.biased_mnist_experiments import *
+from experiments.biased_mnist_experiments import *
 from experiments.gqa_experiments import *
 
 

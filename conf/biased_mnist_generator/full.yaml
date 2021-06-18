@@ -1,0 +1,33 @@
+biased_mnist_dir: /hdd/robik/biased_mnist
+mnist_dir: /hdd/robik/MNIST
+bias_split_name: full
+textures_dir: null
+
+bias_config:
+  digit_color:
+    enabled: True
+    p_bias: 0.9
+    type: 'discrete'
+  digit_scale:
+    enabled: True
+    p_bias: 0.9
+  digit_position:
+    enabled: True
+    p_bias: 0.9
+  texture:
+    enabled: True
+    p_bias: 0.9
+  texture_color:
+    enabled: True
+    p_bias: 0.9
+  letter:
+    enabled: True
+    p_bias: 0.9
+  letter_color:
+    enabled: True
+    p_bias: 0.9
+  natural_texture:
+    enabled: False
+    p_bias: 0
+  num_cells: 5
+  class_imbalance_ratio: null
