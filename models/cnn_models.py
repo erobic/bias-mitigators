@@ -156,41 +156,15 @@ class BiasedMNISTCoordConv(nn.Module):
         }
 
 
-# https://github.com/walsvid/CoordConv
-
-
-class Predictor(nn.Module):
-    def __init__(self, input_ch=16, num_classes=8):
-        super(Predictor, self).__init__()
-        self.pred_conv1 = nn.Conv2d(input_ch, input_ch, kernel_size=3,
-                                    stride=1, padding=1)
-        self.pred_bn1 = nn.BatchNorm2d(input_ch)
-        self.relu = nn.ReLU(inplace=True)
-        self.pred_conv2 = nn.Conv2d(input_ch, num_classes, kernel_size=3,
-                                    stride=1, padding=1)
-        self.softmax = nn.Softmax(dim=1)
-        self.avgpool = nn.AdaptiveAvgPool2d(1)
-
-    def forward(self, x):
-        x = self.pred_conv1(x)
-        x = self.pred_bn1(x)
-        x = self.relu(x)
-
-        x = self.pred_conv2(x)
-        # x = self.avgpool(x).squeeze()
-        px = self.softmax(x)
-
-        return x, px
-
-
-class ResNet18(nn.Module):
-    def __init__(self, num_classes, pretrained=True, in_dims=None, hid_dims=None, norm_layer=nn.BatchNorm2d,
-                 width=64):
-        super(ResNet18, self).__init__()
-        # self.model = resnet18(pretrained=pretrained, norm_layer=norm_layer)
-        self.model = resnet18vw(width=width, pretrained=False, norm_layer=norm_layer)
+class ResNetWrapper(nn.Module):
+    def __init__(self, num_classes, in_dims=None, hid_dims=None, norm_layer=nn.BatchNorm2d, width=64):
+        super(ResNetWrapper, self).__init__()
+        self.model = self.create_model(width, norm_layer)
         self.model.fc = nn.Linear(self.model.fc.in_features, num_classes)
         self.adaptive_avgpool = nn.AdaptiveAvgPool2d(1)
+
+    def create_model(self, width, norm_layer):
+        return resnet18vw(width=width, pretrained=False, norm_layer=norm_layer)
 
     def freeze_layers(self, layers):
         self.layers_to_freeze = layers
@@ -256,65 +230,18 @@ class ResNet18(nn.Module):
             'logits': x
         }
 
-    def get_analysis_layers(self):
-        return ['logits']
 
-    def get_classifier(self):
-        return self.fc
-
-    def compute_importance_based_on_outgoing_connections(self, layer_name, importance_norm='l1'):
-        # Computes importance using L1 Norm of weights to the next layer
-        # TODO: Can we automate this?
-        next_layers = {
-            'conv1': 'model.layer1.0.conv1',
-            'layer1': 'model.layer2.0.conv1',
-            'layer2': 'model.layer3.0.conv1',
-            'layer3': 'model.layer4.0.conv1',
-            'layer4': 'model.fc'
-        }
-        next_layer_name = next_layers[layer_name]
-        importance = None
-        for name, module in self.named_modules():
-            if name == next_layer_name:
-                if type(module).__name__ == 'Linear':
-                    importance = torch.abs(module.weight).sum(dim=0)
-                elif type(module).__name__ == 'Conv2d':
-                    importance = torch.abs(module.weight.transpose(0, 1).reshape(module.weight.shape[1], -1)).sum(dim=1)
-        return importance
+class ResNet18(ResNetWrapper):
+    def __init__(self, num_classes, in_dims=None, hid_dims=None, norm_layer=nn.BatchNorm2d, width=64):
+        super(ResNet18, self).__init__(num_classes, in_dims, hid_dims, norm_layer, width)
 
 
-class ResNet18_96(ResNet18):
-    def __init__(self, num_classes, pretrained=True, in_dims=None, hid_dims=None, norm_layer=nn.BatchNorm2d):
-        super().__init__(num_classes, pretrained, in_dims, hid_dims, norm_layer, width=96)
-
-
-class ResNet18_128(ResNet18):
-    def __init__(self, num_classes, pretrained=True, in_dims=None, hid_dims=None, norm_layer=nn.BatchNorm2d):
-        super().__init__(num_classes, pretrained, in_dims, hid_dims, norm_layer, width=128)
-
-
-class CNNDiscriminator(nn.Module):
-    def __init__(self, in_dims, hid_dims, num_classes):
-        super(CNNDiscriminator, self).__init__()
-        self.conv = nn.Conv2d(in_dims, hid_dims, kernel_size=7)
-        self.avgpool = nn.AdaptiveAvgPool2d(output_size=1)
-        self.fc = nn.Linear(hid_dims, num_classes)
-
-    def forward(self, x):
-        x = self.conv(x)
-        x = nn.functional.relu(x)
-        x = self.avgpool(x).squeeze()
-        fc = self.fc(x).squeeze()
-        return {
-            'before_logits': x,
-            'logits': fc
-        }
+class ResNet10(ResNetWrapper):
+    def __init__(self, num_classes, in_dims=None, hid_dims=None, norm_layer=nn.BatchNorm2d, width=64):
+        super(ResNet10, self).__init__(num_classes, in_dims, hid_dims, norm_layer, width)
 
 
 if __name__ == "__main__":
-    biased_mnist_x = torch.randn((32, 3, 96, 96))
-    m = BiasedMNISTCNN()
-    m(biased_mnist_x)
-    # m = ResNet18GroupNorm4(num_classes=10)
-    # print(m)
-    # m(celebA_x)
+    biased_mnist_x = torch.randn((32, 3, 160, 160))
+    model = ResNet10(10)
+    model(biased_mnist_x)
