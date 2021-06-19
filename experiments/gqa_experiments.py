@@ -67,7 +67,6 @@ def gqa_experiments(option, run):
 
     # Test epochs
     option.test_every = 15
-    option.save_every = 30
     option.save_model_every = 30
 
     if option.model_name == 'MCAN':

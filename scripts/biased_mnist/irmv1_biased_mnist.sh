@@ -9,6 +9,6 @@ python main.py \
 --weight_decay 0 \
 --expt_type biased_mnist_experiments \
 --trainer_name ${TRAINER_NAME} \
---grad_penalty_weight 1 \
---num_envs_per_batch 128 \
+--grad_penalty_weight 0.01 \
+--num_envs_per_batch 16 \
 --root_dir ${ROOT}

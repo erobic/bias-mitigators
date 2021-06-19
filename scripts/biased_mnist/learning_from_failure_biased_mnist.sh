@@ -11,6 +11,6 @@ python main.py \
 --weight_decay 0 \
 --trainer_name ${TRAINER_NAME} \
 --optimizer_name Adam \
---bias_loss_gamma 0.1 \
+--bias_loss_gamma 0.5 \
 --root_dir ${ROOT}
 

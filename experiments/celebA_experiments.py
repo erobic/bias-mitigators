@@ -74,7 +74,6 @@ def celebA_experiments(option, run):
     # Test epochs
     option.test_epochs = [e for e in range(40, 51)]  # Due to instability, we average accuracies over the last 10 epochs
     option.test_every = 10  # We further test every 10 epochs
-    option.save_every = 50
 
     run(option)
 

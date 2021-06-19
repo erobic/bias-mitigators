@@ -9,4 +9,6 @@ python main.py \
 --lr 1e-4 \
 --weight_decay 1e-4 \
 --trainer_name ${TRAINER_NAME} \
---root_dir ${ROOT}
+--root_dir ${ROOT} \
+--entropy_loss_weight 0.01 \
+--grad_reverse_factor -0.1

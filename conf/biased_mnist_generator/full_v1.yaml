@@ -1,6 +1,6 @@
 biased_mnist_dir: /hdd/robik/biased_mnist
 mnist_dir: /hdd/robik/MNIST
-bias_split_name: full
+bias_split_name: full_v1
 textures_dir: null
 
 bias_config:

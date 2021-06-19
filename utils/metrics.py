@@ -211,3 +211,7 @@ class PredictionChangeTracker():
             'group_change_percent': group_change_pct,
             'max_num_changes': max_num_changes,
         }
+
+
+class MajorityMinorityMetrics():
+    pass
