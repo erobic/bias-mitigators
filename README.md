@@ -15,6 +15,10 @@ Our paper examines if the state-of-the-art bias mitigation methods are able to p
 
 `conda install tqdm opencv pandas`
 
+`pip install PyYAML`
+
+`pip install emnist`
+
 #### Configure Path
 
 - Edit the `ROOT` variable in `common.sh`. This directory will contain the datasets and the experimental results.
