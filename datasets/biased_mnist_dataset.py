@@ -207,11 +207,14 @@ class GroupUtils():
 
         # Go through all of the bias variables, to come up with the group name
         for ix, bias_name in enumerate(self.bias_variable_names):
-            bias_val_ix = curr_factor_to_val[bias_name + "_ix"]
+            if bias_name == 'digit':
+                bias_ix_val = curr_factor_to_val[bias_name]
+            else:
+                bias_ix_val = curr_factor_to_val[bias_name + "_ix"]
             maj_min = 'minority'
-            if bias_val_ix == class_ix:
+            if bias_ix_val == class_ix:
                 maj_min = 'majority'
-            group_name_parts.append(f'{bias_name}_{bias_val_ix}')
+            group_name_parts.append(f'{bias_name}_{bias_ix_val}')
             maj_min_group_name_parts.append(f'{bias_name}_{maj_min}')
 
         group_name = '+'.join(group_name_parts)
