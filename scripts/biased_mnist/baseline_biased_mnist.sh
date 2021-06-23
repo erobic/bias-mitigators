@@ -5,7 +5,7 @@ source activate bias_mitigator
 
 TRAINER_NAME='BaseTrainer'
 lr=1e-3
-wd=0
+wd=1e-3
 
 python main.py \
 --expt_type biased_mnist_experiments \

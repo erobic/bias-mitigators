@@ -6,8 +6,8 @@ source activate bias_mitigator
 TRAINER_NAME='RUBiTrainer'
 
 python main.py \
---expt_type biased_mnist_experiments \
+--expt_type biased_mnist_experiments_hierarchical \
 --trainer_name ${TRAINER_NAME} \
---lr 1e-4 \
---weight_decay 1e-5 \
+--lr 1e-3 \
+--weight_decay 1e-3 \
 --root_dir ${ROOT}
