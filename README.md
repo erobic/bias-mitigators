@@ -1,6 +1,6 @@
 ##  An Investigation of Critical Issues in Bias Mitigation Techniques
 
-Our paper examines if the state-of-the-art bias mitigation methods are able to perform well on more realistic settings: with multiple sources of biases, hidden biases and without access to test distributions. This repository has implementations/re-implementations for seven popular techniques.
+Our paper (https://arxiv.org/abs/2104.00170) examines if the state-of-the-art bias mitigation methods are able to perform well on more realistic settings: with multiple sources of biases, hidden biases and without access to test distributions. This repository has implementations/re-implementations for seven popular techniques.
 
   
 ### Setup
@@ -28,7 +28,7 @@ Our paper examines if the state-of-the-art bias mitigation methods are able to p
 - For each dataset, we test on train, val and test splits. Each dataset file contains a function to create a dataloader for all of these splits.
 
 ##### Biased MNIST
-Coming Soon -- We may make some improvements to the dataset. We plan on releasing it by May, 2021.
+Coming Soon -- We may make some improvements to the dataset. We plan on releasing it by June, 2021.
 
 ##### CelebA
 - Download the dataset [from here](https://drive.google.com/drive/folders/0B7EVK8r0v71pWEZsZE9oNnFzTm8) and extract the data to `${ROOT}`
