@@ -7,6 +7,16 @@ def set_if_null(option, attr_name, val):
         setattr(option, attr_name, val)
 
 
+def biased_mnist_experiments(option, run):
+    # Method-specific arguments are mostly defined in the bash files inside: scripts/celebA
+    orig_option = copy.deepcopy(option)
+
+    # Here, we configure rest of the arguments which likely DO NOT NEED TO BE CHANGED
+    for bias_variables in [['digit_color']]:
+        for p_bias in [0.95]:
+            option = copy.deepcopy(orig_option)
+            run_expt(option, run, p_bias, bias_variables, '')
+
 def biased_mnist_experiments_lr_wd(option, run):
     # Method-specific arguments are mostly defined in the bash files inside: scripts/celebA
     orig_option = copy.deepcopy(option)
@@ -28,7 +38,17 @@ def biased_mnist_experiments_p_bias(option, run):
 
     # Here, we configure rest of the arguments which likely DO NOT NEED TO BE CHANGED
     for bias_variables in [['digit_color']]:
-        for p_bias in [0.9, 0.93, 0.95, 0.97, 0.99]:
+        for p_bias in [0.9, 0.93, 0.95, 0.97, 0.99, 1.0]:
+            run_expt(orig_option, run, p_bias, bias_variables)
+
+
+def biased_mnist_experiments_p_bias1(option, run):
+    # Method-specific arguments are mostly defined in the bash files inside: scripts/celebA
+    orig_option = copy.deepcopy(option)
+
+    # Here, we configure rest of the arguments which likely DO NOT NEED TO BE CHANGED
+    for bias_variables in [['digit_color']]:
+        for p_bias in [1.0]:
             run_expt(orig_option, run, p_bias, bias_variables)
 
 
