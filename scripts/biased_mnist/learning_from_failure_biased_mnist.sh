@@ -7,7 +7,7 @@ TRAINER_NAME='LffTrainer'
 
 for bias_loss_gamma in 0.3; do
   python main.py \
-  --expt_type biased_mnist_experiments_individual \
+  --expt_type biased_mnist_experiments \
   --lr 1e-4 \
   --weight_decay 1e-3 \
   --trainer_name ${TRAINER_NAME} \

@@ -7,7 +7,7 @@ TRAINER_NAME='LNLTrainer'
 for entropy_loss_weight in 0.01; do
   for grad_reverse_factor in -0.001; do
     python main.py \
-    --expt_type biased_mnist_experiments_hierarchical \
+    --expt_type biased_mnist_experiments \
     --lr 1e-4 \
     --weight_decay 1e-3 \
     --trainer_name ${TRAINER_NAME} \

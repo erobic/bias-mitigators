@@ -5,10 +5,10 @@ source activate bias_mitigator
 
 TRAINER_NAME='GroupDROTrainer'
 
-for step_size in 0.001; do
-  CUDA_VISIBLE_DEVICES=0 python main.py \
-  --expt_type biased_mnist_experiments_lr_wd \
-  --trainer_name ${TRAINER_NAME} \
-  --group_weight_step_size ${step_size} \
-  --root_dir ${ROOT}
-done
+python -u main.py \
+--expt_type biased_mnist_experiments \
+--lr 1e-3 \
+--weight_decay 1e-3 \
+--trainer_name ${TRAINER_NAME} \
+--group_weight_step_size 0.001 \
+--root_dir ${ROOT}
