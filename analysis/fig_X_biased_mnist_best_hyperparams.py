@@ -2,11 +2,14 @@ import os
 import json
 
 
-def main():
+def main(p_bias=0.97):
     for trainer_name in ['BaseTrainer', 'GroupUpweightingTrainer', 'GroupDROTrainer',
-                         'LNLTrainer', 'IRMv1Trainer', 'RUBiTrainer',
-                         'LffTrainer', 'SpectralDecouplingTrainer']:
-        root = '/hdd/robik/Bias-Mitigators/full_v1_0.9/target_digit_bias_digit_color'
+                         'LNLTrainer', 'IRMv1Trainer_grad_wt_0.01', 'RUBiTrainer',
+                         'LffTrainer', 'SpectralDecouplingTrainer']:  #
+        # for trainer_name in ['GroupDROTrainer']:
+        root = f'/hdd/robik/Bias-Mitigators/full_v1_{p_bias}/target_digit_bias_digit_color'
+        if trainer_name in ['GroupDROTrainer', 'GroupUpweightingTrainer']:
+            root += '+digit'
         best_lr, best_wd = 0, 0
         best_acc = 0
         for lr in [0.001, 0.0001, 1e-05]:
@@ -39,5 +42,5 @@ def custom():
 
 
 if __name__ == "__main__":
-    # main()
-    custom()
+    main()
+    # custom()

@@ -71,7 +71,7 @@ class BiasedMNISTDataset(Dataset):
         for index, curr_factor_to_val in enumerate(self.factors_data):
             curr_factor_to_val = self.factors_data[index]  # Contains exact values for each factor
             group_ix, group_name, maj_min_group_ix, maj_min_group_name = self.main_group_utils.to_group_ix_and_name(
-                curr_factor_to_val)
+                curr_factor_to_val, should_print=True)
             # Gather the class id of the target attribute and add group based on bias variable
             y = curr_factor_to_val[self.target_name]
             item_data = {
@@ -101,7 +101,6 @@ class BiasedMNISTDataset(Dataset):
         try:
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         except:
-            print("here")
             img = np.zeros((160, 160, 3))
             index = 0
         img = torch.FloatTensor(img)
@@ -197,7 +196,7 @@ class GroupUtils():
         self.max_group_ix = 0
         self.max_maj_min_group_ix = 0
 
-    def to_group_ix_and_name(self, curr_factor_to_val):
+    def to_group_ix_and_name(self, curr_factor_to_val, should_print=False):
         group_name_parts = []
 
         # Assume that if the factor ix is same as the index of the factor val, then it is a majority group,
@@ -225,6 +224,9 @@ class GroupUtils():
         if group_name not in self.group_name_to_ix:
             self.group_name_to_ix[group_name] = self.max_group_ix
             self.max_group_ix += 1
+            if should_print:
+                print(f"adding group name {group_name}, max_group_ix: {self.max_group_ix}")
+
         if maj_min_group_name not in self.maj_min_group_name_to_ix:
             self.maj_min_group_name_to_ix[maj_min_group_name] = self.max_maj_min_group_ix
             self.max_maj_min_group_ix += 1

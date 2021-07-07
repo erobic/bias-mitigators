@@ -144,6 +144,12 @@ def get_scale_ix_to_digit_positions(num_cells=5, pad_cells=0):
     return scale_ix_to_digit_positions
 
 
+def get_digit_positions():
+    return [(0, 0), (0, 2), (0, 4),
+            (2, 0), (2, 2), (2, 3), (2, 4),
+            (4, 0), (4, 2), (4, 4)]
+
+
 def sample_biased_digit_positions(digit_scale_ixs, scale_ix_to_positions, class_ixs, p_bias):
     """
     Returns the biased/canonical value of position for a given scale with probability p_bias, else chooses position at random

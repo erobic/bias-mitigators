@@ -4,12 +4,10 @@ set -e
 source activate bias_mitigator
 
 TRAINER_NAME='BaseTrainer'
-lr=1e-3
-wd=1e-3
 
 python main.py \
---expt_type biased_mnist_experiments \
+--expt_type biased_mnist_experiments_p_bias \
 --trainer_name ${TRAINER_NAME} \
---lr ${lr} \
---weight_decay ${wd} \
+--lr 1e-3 \
+--weight_decay 0.1 \
 --root_dir ${ROOT}

@@ -31,7 +31,7 @@ class BiasedMNISTGenerator():
     BIAS_LETTER = 'letter'
     BIAS_LETTER_COLOR = 'letter_color'
     FACTORS_v1 = [BIAS_DIGIT_COLOR, BIAS_TEXTURE, BIAS_TEXTURE_COLOR,
-                    BIAS_DIGIT_POSITION, BIAS_LETTER, BIAS_LETTER_COLOR]
+                  BIAS_DIGIT_POSITION, BIAS_LETTER, BIAS_LETTER_COLOR]
 
     def __init__(self, original_mnist_dir, textures_dir, split, bias_config, cell_dim=32):
         """
@@ -131,12 +131,15 @@ class BiasedMNISTGenerator():
 
     def sample_digit_positions(self, class_ixs, digit_scale_ixs, digit_scales):
         bias_name = self.BIAS_DIGIT_POSITION
-        if self.is_bias_enabled(bias_name):
-            # TODO: handle this as well
+        if self.is_bias_enabled(bias_name) and self.is_bias_enabled(self.BIAS_DIGIT_SCALE):
             digit_position_ixs, digit_positions = sample_biased_digit_positions(digit_scale_ixs,
                                                                                 get_scale_ix_to_digit_positions(),
                                                                                 class_ixs,
                                                                                 self.get_p_bias(bias_name))
+        elif self.is_bias_enabled(self.BIAS_DIGIT_POSITION):
+            all_digit_positions = get_digit_positions()
+            digit_position_ixs, digit_positions = sample_conditional_biased_values(all_digit_positions, class_ixs,
+                                                                                   self.get_p_bias(bias_name))
         else:
             digit_position_ixs, digit_positions = [0] * len(class_ixs), get_center_positions(digit_scales,
                                                                                              num_cells=self.num_cells)

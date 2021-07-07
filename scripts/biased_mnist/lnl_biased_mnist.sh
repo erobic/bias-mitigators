@@ -4,15 +4,13 @@ set -e
 source activate bias_mitigator
 
 TRAINER_NAME='LNLTrainer'
-for entropy_loss_weight in 0.01; do
-  for grad_reverse_factor in -0.001; do
+for expt_type in biased_mnist_individual_variables biased_mnist_experiments_hierarchical biased_mnist_experiments_p_bias; do
     python main.py \
-    --expt_type biased_mnist_experiments \
+    --expt_type ${expt_type} \
     --lr 1e-4 \
-    --weight_decay 1e-3 \
+    --weight_decay 0 \
     --trainer_name ${TRAINER_NAME} \
     --root_dir ${ROOT} \
-    --entropy_loss_weight ${entropy_loss_weight} \
-    --grad_reverse_factor ${grad_reverse_factor}
-  done
+    --entropy_loss_weight 0.01 \
+    --grad_reverse_factor -0.001
 done
