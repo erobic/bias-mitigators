@@ -307,6 +307,10 @@ class BaseTrainer(object):
 
             for key in batch.keys():
                 if 'group' in key and 'name' in key:
+                    if hasattr(self.option,
+                               'do_not_print_by_long_group_name') and self.option.do_not_print_by_long_group_name and key == 'group_name':
+                        # Avoid printing accuracy for individual groups for BiasedMNIST
+                        continue
                     if group_type_to_names is None or key not in group_type_to_names:
                         group_type_to_names[key] = np.asarray(
                             ['NoneNoneNoneNoneNoneNone'] * (self.max_dataset_ixs[
@@ -345,8 +349,8 @@ class BaseTrainer(object):
         ################################################################################################################
         # Update unnormalized, per class and per group accuracies
         ################################################################################################################
-        self.accuracy_visualizer.update(chart_name, f'{model_key} Accuracy', accuracy_metric.get_accuracy() * 100)
-        self.accuracy_visualizer.update(chart_name, f'{model_key} MPA',
+        self.accuracy_visualizer.update(chart_name, f'zzz {model_key} Accuracy', accuracy_metric.get_accuracy() * 100)
+        self.accuracy_visualizer.update(chart_name, f'zzz {model_key} MPA',
                                         accuracy_metric.get_mean_per_class_accuracy() * 100)
         self.accuracy_visualizer.log(epoch, chart_name)
         self.loss_visualizer.log(epoch, chart_name)
