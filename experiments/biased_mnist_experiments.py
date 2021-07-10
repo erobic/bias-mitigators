@@ -1,5 +1,5 @@
-import os
 import copy
+import os
 
 
 def set_if_null(option, attr_name, val):
@@ -17,18 +17,19 @@ def biased_mnist_experiments(option, run):
             option = copy.deepcopy(orig_option)
             run_expt(option, run, p_bias, bias_variables, '')
 
+
 def biased_mnist_experiments_lr_wd(option, run):
     # Method-specific arguments are mostly defined in the bash files inside: scripts/celebA
     orig_option = copy.deepcopy(option)
 
     # Here, we configure rest of the arguments which likely DO NOT NEED TO BE CHANGED
     for bias_variables in [['digit_color']]:
-        for p_bias in [0.9]:
+        for p_bias in [0.95]:
             for lr in [1e-3, 1e-4, 1e-5]:
                 for wd in [0, 1e-3, 0.1]:
                     option = copy.deepcopy(orig_option)
                     option.lr = lr
-                    option.wd = wd
+                    option.weight_decay = wd
                     run_expt(option, run, p_bias, bias_variables, f'lr_{lr}_wd_{wd}')
 
 
@@ -42,14 +43,14 @@ def biased_mnist_experiments_p_bias(option, run):
             run_expt(orig_option, run, p_bias, bias_variables)
 
 
-def biased_mnist_experiments_p_bias1(option, run):
+def biased_mnist_individual_variables(option, run_fn):
     # Method-specific arguments are mostly defined in the bash files inside: scripts/celebA
     orig_option = copy.deepcopy(option)
 
     # Here, we configure rest of the arguments which likely DO NOT NEED TO BE CHANGED
-    for bias_variables in [['digit_color']]:
-        for p_bias in [1.0]:
-            run_expt(orig_option, run, p_bias, bias_variables)
+    # 'digit_color',
+    for bias_variable in ['digit_position', 'texture', 'texture_color', 'letter', 'letter_color', 'digit_color']:
+        run_expt(orig_option, run_fn, 0.95, [bias_variable], '')
 
 
 def biased_mnist_experiments_hierarchical(option, run_fn):
@@ -57,14 +58,20 @@ def biased_mnist_experiments_hierarchical(option, run_fn):
     orig_option = copy.deepcopy(option)
 
     # Here, we configure rest of the arguments which likely DO NOT NEED TO BE CHANGED
-    hier_bias_vars = []
+    all_vars = []
+    running_vars = []
     for bias_variable in ['digit_color', 'digit_position', 'texture', 'texture_color', 'letter', 'letter_color']:
-        hier_bias_vars.append(bias_variable)
-        run_expt(orig_option, run_fn, 0.95, hier_bias_vars, '')
+        running_vars.append(bias_variable)
+        all_vars.append(copy.deepcopy(running_vars))
+    all_vars = list(reversed(all_vars))
+
+    for vars in all_vars:
+        run_expt(orig_option, run_fn, 0.95, vars, '')
 
 
 def run_expt(orig_option, run_fn, p_bias, bias_variables, expt_name=''):
     option = copy.deepcopy(orig_option)
+    option.do_not_print_by_long_group_name = True
     option.dataset_name = 'biased_mnist'
     option.data_dir = option.root_dir + f"/{option.dataset_name}"
     option.bias_split_name = 'full_v1'
@@ -94,6 +101,8 @@ def run_expt(orig_option, run_fn, p_bias, bias_variables, expt_name=''):
         option.save_dir = os.path.join(option.root_dir, option.project_name, option.trainval_sub_dir,
                                        f'target_{option.target_name}_bias_{option.bias_variables_str}',
                                        option.trainer_name)
+    if option.trainer_name == 'IRMv1Trainer':
+        option.save_dir += f'_grad_wt_{option.grad_penalty_weight}'
     if option.expt_name is None and expt_name is not None:
         option.expt_name = expt_name
 
