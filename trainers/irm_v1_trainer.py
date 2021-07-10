@@ -84,14 +84,13 @@ class IRMv1Trainer(BaseTrainer):
             batch_losses = self.loss(logits, torch.squeeze(batch['y']))
             grad_penalty = self.option.grad_penalty_weight * self.compute_gradient_penalty(logits, batch['y'])
             self.loss_visualizer.update(f'Train', 'Main Loss', batch_losses.mean().item())
-            self.loss_visualizer.update(f'Train', 'Grad Penalty',
-                                        self.option.grad_penalty_weight * grad_penalty.mean().item())
+            self.loss_visualizer.update(f'Train', 'Grad Penalty', grad_penalty.mean().item())
 
             self.optim.zero_grad()
             loss = batch_losses.mean() + grad_penalty.mean()
             loss.backward(retain_graph=True)  # Cannot go through each environment before calling backward()
-            if self.option.grad_clip is not None:
-                torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.option.grad_clip)
+            # if self.option.grad_clip is not None:
+            #     torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.option.grad_clip)
             self.optim.step()
 
         self.optim.zero_grad()
