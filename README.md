@@ -38,7 +38,7 @@ The first version (`biased_mnist_full_v1`) of the Biased MNIST dataset entails d
 - Co-occurring letters (e.g., 0s co-occur with a's and 1s with b's)
 - Color of co-occurring letters
 
-You can download Biased MNIST v1 [from here](https://drive.google.com/drive/folders/1O5aUB-egT613oGmm2q01EuXpxjXjjwRd?usp=sharing)
+The download link will be provided soon.
 This dataset is different from the current arXiv submission. We will update the paper with the new dataset and results soon...
 
 ##### Generating Biased MNISTv1
