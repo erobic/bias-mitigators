@@ -147,4 +147,11 @@ python main.py \
 
 
 ### Citation
-Coming soon... 
+```
+@article{shrestha2021investigation,
+  title={An investigation of critical issues in bias mitigation techniques},
+  author={Shrestha, Robik and Kafle, Kushal and Kanan, Christopher},
+  journal={Workshop on Applications of Computer Vision},
+  year={2021}
+}
+```
