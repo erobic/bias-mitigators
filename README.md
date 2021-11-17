@@ -20,11 +20,10 @@ Our paper examines if the state-of-the-art bias mitigation methods are able to p
 - Edit the `ROOT` variable in `common.sh`. This directory will contain the datasets and the experimental results.
 
 #### Datasets
-
 - For each dataset, we test on train, val and test splits. Each dataset file contains a function to create a dataloader for all of these splits.
 
 ##### Biased MNIST
-Coming Soon -- We may make some improvements to the dataset. We plan on releasing it by May, 2021.
+Download [from here](https://drive.google.com/file/d/1RlvskdRjdAj6sqpYeD48sR2uJnxAYmv5/view?usp=sharing).
 
 ##### CelebA
 - Download the dataset [from here](https://drive.google.com/drive/folders/0B7EVK8r0v71pWEZsZE9oNnFzTm8) and extract the data to `${ROOT}`
@@ -80,4 +79,11 @@ python main.py \
 
 
 ### Citation
-Coming soon... 
+```
+@article{shrestha2021investigation,
+  title={An investigation of critical issues in bias mitigation techniques},
+  author={Shrestha, Robik and Kafle, Kushal and Kanan, Christopher},
+  journal={Workshop on Applications of Computer Vision},
+  year={2021}
+}
+```

@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
-import os
 import random
-
-import numpy as np
 import torch
-from torch.backends import cudnn
-
 from option import get_option
 from trainers import trainer_factory
 from utils.trainer_utils import save_option, initialize_logger
@@ -13,7 +8,7 @@ import logging
 from datasets import dataloader_factory
 import json
 from experiments.celebA_experiments import *
-# from experiments.biased_mnist_experiments import *
+from experiments.biased_mnist_experiments import *
 from experiments.gqa_experiments import *
 
 
@@ -63,9 +58,6 @@ def main():
 
 def run(option):
     backend_setting(option)
-    # neptune.create_experiment(name=option.trainer_name + "_" + option.expt_name,
-    #                           params=option.__dict__)
-    # neptune.append_tag(option.trainer_name + "_" + option.expt_name)
     data_loaders = dataloader_factory.build_dataloaders(option)
     if 'gqa' in option.dataset_name.lower():
         option.bias_variable_dims = option.num_groups

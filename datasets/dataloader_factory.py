@@ -1,9 +1,10 @@
-from datasets.celebA_dataset import create_celebA_dataloaders
 import logging
 import torch
 from torch.utils.data import DataLoader
 import json
-from datasets.vqa.gqa_dataset import GQADataset, create_gqa_dataloaders
+from datasets.biased_mnist_dataset import create_biased_mnist_dataloaders
+from datasets.celebA_dataset import create_celebA_dataloaders
+from datasets.vqa.gqa_dataset import create_gqa_dataloaders
 
 
 def build_balanced_loader(dataloader, balanced_sampling_attributes=['y'], balanced_sampling_gamma=1, replacement=True):
@@ -42,7 +43,7 @@ def build_balanced_loader(dataloader, balanced_sampling_attributes=['y'], balanc
 
 def build_dataloaders(option):
     dataset_name = option.dataset_name.lower()
-    if dataset_name == 'biased_mnist':
+    if dataset_name == 'biased_mnist_v1':
         loaders = create_biased_mnist_dataloaders(option)  # Sets the num_groups
     elif dataset_name == 'celeba':
         loaders = create_celebA_dataloaders(option)

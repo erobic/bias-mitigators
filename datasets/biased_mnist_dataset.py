@@ -7,7 +7,9 @@ from torch.utils.data import Dataset, DataLoader, Subset
 from torchvision import datasets, transforms
 import cv2
 from utils.data_utils import dict_collate_fn
+from PIL import Image
 import copy
+from torchvision.datasets.mnist import MNIST
 import json
 import option
 from datasets.shape_generator import ShapeGenerator
@@ -521,7 +523,9 @@ def generate_biased_mnist_dataset():
     ###################################################################################################################
     # Generate trainval sets with different degrees of biases
     ###################################################################################################################
-    for p_bias in [0.7]: # 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9
+    for p_bias in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
+        # for p_bias in [0.1, 0.7, 0.9]:
+        # for p_bias in [0.7]:
         save_dir = os.path.join(biased_mnist_dir, f'p_bias_{p_bias}')
         print(f"Saving to {save_dir}")
         bias_probas = {}
@@ -600,7 +604,7 @@ def test_grouping():
 if __name__ == "__main__":
     # # Generate the different MNIST datasets
     original_mnist_dir = option.ROOT + '/MNIST'
-    biased_mnist_dir = option.ROOT + '/biased_mnist'
+    biased_mnist_dir = option.ROOT + '/biased_mnist_v1'
     if not os.path.exists(biased_mnist_dir):
         os.makedirs(biased_mnist_dir)
     generate_biased_mnist_dataset()
