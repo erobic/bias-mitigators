@@ -2,7 +2,7 @@ import os
 import json
 
 
-def main(p_bias=0.97):
+def main(p_bias=0.95):
     for trainer_name in ['BaseTrainer', 'GroupUpweightingTrainer', 'GroupDROTrainer',
                          'LNLTrainer', 'IRMv1Trainer_grad_wt_0.01', 'RUBiTrainer',
                          'LffTrainer', 'SpectralDecouplingTrainer']:  #
@@ -15,9 +15,15 @@ def main(p_bias=0.97):
         for lr in [0.001, 0.0001, 1e-05]:
             for wd in [0, 0.001, 0.1]:
                 expt_dir = os.path.join(root, trainer_name, f'lr_{lr}_wd_{wd}')
+                # if not os.path.exists(os.path.join(expt_dir, 'metrics.json')):
+                #     print(f"metrics.json not present in {expt_dir}")
+                #     continue
 
                 with open(os.path.join(expt_dir, 'metrics.json')) as f:
-                    acc = json.load(f)['Main']['50']['Test']['accuracy']
+                    content = json.load(f)
+                    # if 'Main' not in content:
+                    #     continue
+                    acc = content['Main']['50']['Test']['accuracy']
                     if acc > best_acc:
                         best_lr = lr
                         best_wd = wd

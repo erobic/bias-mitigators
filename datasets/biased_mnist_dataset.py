@@ -71,7 +71,7 @@ class BiasedMNISTDataset(Dataset):
         for index, curr_factor_to_val in enumerate(self.factors_data):
             curr_factor_to_val = self.factors_data[index]  # Contains exact values for each factor
             group_ix, group_name, maj_min_group_ix, maj_min_group_name = self.main_group_utils.to_group_ix_and_name(
-                curr_factor_to_val, should_print=True)
+                curr_factor_to_val)
             # Gather the class id of the target attribute and add group based on bias variable
             y = curr_factor_to_val[self.target_name]
             item_data = {

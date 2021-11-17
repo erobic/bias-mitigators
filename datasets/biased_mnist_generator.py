@@ -238,7 +238,7 @@ class BiasedMNISTGenerator():
         attrs['digit_scale_ixs'] = digit_scale_ixs
         attrs['digit_scales'] = digit_scales
 
-        digit_position_ixs, digit_positions = self.sample_digit_positions(digit_ixs, digit_scale_ixs, digit_scales)
+        digit_position_ixs, digit_positions = self.sample_digit_positions(digit_ixs, digit_ixs, digit_scales)
         attrs['digit_position_ixs'] = digit_position_ixs
         attrs['digit_positions'] = digit_positions
 

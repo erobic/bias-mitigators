@@ -111,8 +111,10 @@ class LNLTrainer(BaseTrainer):
             if isinstance(bias_labels, list):
                 bias_labels = torch.LongTensor(bias_labels)
             bias_labels = bias_labels.long().cuda()
-            if len(bias_labels.squeeze().shape) > 1:
-                bias_labels = torch.argmax(bias_labels, dim=1).squeeze()
+            # if len(bias_labels.squeeze().shape) > 1:
+            #     bias_labels = torch.argmax(bias_labels, dim=1).squeeze()
+            # print(f"out['logits].shape {bias_out['logits']}")
+            # print(f"bias_labels.shape {bias_labels.squeeze().shape}")
             bias_loss = self.loss(bias_out['logits'].squeeze(), bias_labels.squeeze())
             self.loss_visualizer.update('Train', 'Main loss', loss_pred.mean().item())
             self.loss_visualizer.update('Train', 'Bias Entropy loss', bias_entropy_loss.mean().item())

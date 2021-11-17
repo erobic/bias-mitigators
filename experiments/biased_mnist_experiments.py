@@ -13,7 +13,7 @@ def biased_mnist_experiments(option, run):
 
     # Here, we configure rest of the arguments which likely DO NOT NEED TO BE CHANGED
     for bias_variables in [['digit_color']]:
-        for p_bias in [0.95]:
+        for p_bias in [0.97]:
             option = copy.deepcopy(orig_option)
             run_expt(option, run, p_bias, bias_variables, '')
 
@@ -50,7 +50,7 @@ def biased_mnist_individual_variables(option, run_fn):
     # Here, we configure rest of the arguments which likely DO NOT NEED TO BE CHANGED
     # 'digit_color',
     for bias_variable in ['digit_position', 'texture', 'texture_color', 'letter', 'letter_color', 'digit_color']:
-        run_expt(orig_option, run_fn, 0.95, [bias_variable], '')
+        run_expt(orig_option, run_fn, 0.97, [bias_variable], '')
 
 
 def biased_mnist_experiments_hierarchical(option, run_fn):
@@ -66,7 +66,7 @@ def biased_mnist_experiments_hierarchical(option, run_fn):
     all_vars = list(reversed(all_vars))
 
     for vars in all_vars:
-        run_expt(orig_option, run_fn, 0.95, vars, '')
+        run_expt(orig_option, run_fn, 0.97, vars, '')
 
 
 def run_expt(orig_option, run_fn, p_bias, bias_variables, expt_name=''):
