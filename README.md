@@ -23,7 +23,7 @@ Our paper examines if the state-of-the-art bias mitigation methods are able to p
 - For each dataset, we test on train, val and test splits. Each dataset file contains a function to create a dataloader for all of these splits.
 
 ##### Biased MNIST (Deprecated, see the note on the new version)
-New Version: Since the publication, we worked on a more challenging version of BiasedMNIST. Some of the updates include e.g., increased image sizes, spuriously correlated digit scales, replacing distracting geometric shapes with letters and improving the visual appeal of the background textures. We encourage the community to test on the new version. Stay tuned for the new version!
+New Version: Since the publication, we worked on a more challenging version of BiasedMNIST. Some of the updates include e.g., increased image sizes, spuriously correlated digit scales, replacing distracting geometric shapes with letters and improving the visual appeal of the background textures. We encourage the community to test on the new version, which will be released soon.
 
 You can download the old, WACV version of BiasedMNIST [from here](https://drive.google.com/file/d/1RlvskdRjdAj6sqpYeD48sR2uJnxAYmv5/view?usp=sharing).
 
