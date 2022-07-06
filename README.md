@@ -25,7 +25,7 @@ Our paper examines if the state-of-the-art bias mitigation methods are able to p
 ##### Biased MNIST
 New Version: Since the publication, we worked on a more challenging version of BiasedMNIST. Some of the updates include e.g., increased image sizes, spuriously correlated digit scales, replacing distracting geometric shapes with letters and improving the visual appeal of the background textures. 
 
-We encourage the community to use the [new version](https://github.com/erobic/occam_networks).
+We encourage the community to use the [new version](https://github.com/erobic/occam-nets-v1).
 
 
 You can download the old, WACV version of BiasedMNIST [from here](https://drive.google.com/file/d/1RlvskdRjdAj6sqpYeD48sR2uJnxAYmv5/view?usp=sharing).
