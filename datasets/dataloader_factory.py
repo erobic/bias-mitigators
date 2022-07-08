@@ -5,7 +5,7 @@ import json
 from datasets.biased_mnist_dataset import create_biased_mnist_dataloaders
 from datasets.celebA_dataset import create_celebA_dataloaders
 from datasets.vqa.gqa_dataset import create_gqa_dataloaders
-
+from utils.data_utils import dict_collate_fn
 
 def build_balanced_loader(dataloader, balanced_sampling_attributes=['y'], balanced_sampling_gamma=1, replacement=True):
     logger = logging.getLogger()
@@ -51,7 +51,10 @@ def build_dataloaders(option):
         loaders = create_gqa_dataloaders(option)
     loaders['Unbalanced Train'] = loaders['Train']
     if option.balanced_sampling_attributes is not None:
-        loaders['Train'] = build_balanced_loader(loaders['Train'],
+        unshuffled_train_loader = DataLoader(loaders['Train'].dataset, batch_size=option.batch_size, shuffle=False,
+                                             num_workers=option.num_workers,
+                                             collate_fn=dict_collate_fn())
+        loaders['Train'] = build_balanced_loader(unshuffled_train_loader,
                                                  option.balanced_sampling_attributes,
                                                  balanced_sampling_gamma=option.balanced_sampling_gamma,
                                                  replacement=True)
