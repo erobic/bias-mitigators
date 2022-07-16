@@ -23,7 +23,13 @@ Our paper examines if the state-of-the-art bias mitigation methods are able to p
 - For each dataset, we test on train, val and test splits. Each dataset file contains a function to create a dataloader for all of these splits.
 
 ##### Biased MNIST
-Download [from here](https://drive.google.com/file/d/1RlvskdRjdAj6sqpYeD48sR2uJnxAYmv5/view?usp=sharing).
+New Version: Since the publication, we worked on a more challenging version of BiasedMNIST. Some of the updates include e.g., increased image sizes, spuriously correlated digit scales, replacing distracting geometric shapes with letters and improving the visual appeal of the background textures. 
+
+We encourage the community to use the [new version](https://github.com/erobic/occam-nets-v1).
+
+
+You can download the old, WACV version of BiasedMNIST [from here](https://drive.google.com/file/d/1RlvskdRjdAj6sqpYeD48sR2uJnxAYmv5/view?usp=sharing).
+
 
 ##### CelebA
 - Download the dataset [from here](https://drive.google.com/drive/folders/0B7EVK8r0v71pWEZsZE9oNnFzTm8) and extract the data to `${ROOT}`
